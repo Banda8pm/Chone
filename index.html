@@ -276,6 +276,7 @@
         </div>
         <div class="hero-foot">
           <div class="chip">🎯 목표 150,000원</div>
+          <div class="chip">🚄 교통비 100,000원</div>
           <div class="chip">👥 친구 한정 공개</div>
           <div class="chip">🧾 사용내역 공개 예정</div>
         </div>
@@ -290,13 +291,12 @@
           <div class="stats">
             <div class="stat"><strong id="supporterCount">13명</strong><span>후원자</span></div>
             <div class="stat"><strong id="daysLeft">D-7</strong><span>남은 기간</span></div>
-            <div class="stat"><strong>초네 1명</strong><span>소환 대상</span></div>
+            <div class="stat"><strong>쵸네 1명</strong><span>소환 대상</span></div>
           </div>
         </div>
 
         <div>
-          <a class="cta" id="tossButton" href="#" target="_blank" rel="noopener">쵸네에게 후원하기</a>
-          <button class="subcta" id="copyButton">계좌번호 복사</button>
+          <button class="cta" id="copyButton">계좌번호 복사</button>
           <p class="fine">※ 정식 크라우드펀딩이 아니라 친구들끼리 진행하는 비공식 모금입니다.</p>
         </div>
       </aside>
@@ -308,7 +308,7 @@
         <p>
           이유는 간단합니다. 쵸네가 서울에 오면 재밌기 때문입니다.
           하지만 이동에는 비용이 듭니다. 그래서 여러 명이 조금씩 힘을 합쳐
-          “쵸네 서울 상경”이라는 위대한 공공사업을 추진합니다.
+          “쵸네 서울 상경”이라는 위대한(?) 공공사업을 추진합니다.
         </p>
 
         <div class="timeline">
@@ -333,7 +333,7 @@
         <div class="use-list">
           <div class="use">
             <div class="emoji">🚄</div>
-            <div><b>교통비</b><small>쵸네의 왕복 이동비</small></div>
+            <div><b>교통비 · 100,000원</b><small>쵸네의 왕복 이동비</small></div>
           </div>
           <div class="use">
             <div class="emoji">🍚</div>
@@ -365,7 +365,7 @@
         </div>
         <div class="reward">
           <div class="price">5,000원</div>
-          <div class="title">초네 후원자</div>
+          <div class="title">쵸네 후원자</div>
           <p>쵸네에게 꽤 진심 어린 감사를 받을 가능성이 생깁니다.</p>
         </div>
         <div class="reward">
@@ -397,7 +397,7 @@
       <div class="section">
         <h2>프로젝트 성공 조건</h2>
         <p>
-          목표 금액을 달성하면 초네의 서울 방문 일정을 확정합니다.
+          목표 금액을 달성하면 쵸네의 서울 방문 일정을 확정합니다.
           일정 변경이나 취소가 생기면 모금 참여자들에게 먼저 알리고,
           남은 금액의 처리 방식도 공개합니다.
         </p>
@@ -440,12 +440,8 @@
       supporters: 13,
       daysLeft: 7,
 
-      // 토스 송금링크가 있으면 아래에 붙여넣기.
-      // 없으면 "#" 그대로 두고 계좌번호 버튼만 써도 됨.
-      tossLink: "#",
-
       // 예: "카카오뱅크 3333-12-3456789 홍길동"
-      accountText: "토스뱅크 1000-5076-5517 이창안"
+      accountText: "은행명 000-0000-0000 예금주"
     };
 
     const won = n => n.toLocaleString("ko-KR") + "원";
@@ -456,7 +452,6 @@
     document.getElementById("progressBar").style.width = percent + "%";
     document.getElementById("supporterCount").textContent = CONFIG.supporters + "명";
     document.getElementById("daysLeft").textContent = "D-" + CONFIG.daysLeft;
-    document.getElementById("tossButton").href = CONFIG.tossLink;
 
     const toast = document.getElementById("toast");
     document.getElementById("copyButton").addEventListener("click", async () => {
@@ -470,14 +465,7 @@
       setTimeout(() => toast.classList.remove("show"), 1800);
     });
 
-    document.getElementById("tossButton").addEventListener("click", (e) => {
-      if (!CONFIG.tossLink || CONFIG.tossLink === "#") {
-        e.preventDefault();
-        toast.textContent = "CONFIG의 tossLink에 송금 링크를 넣어주세요!";
-        toast.classList.add("show");
-        setTimeout(() => toast.classList.remove("show"), 2000);
-      }
-    });
+
   </script>
 </body>
 </html>
