@@ -7,15 +7,17 @@
   <meta name="description" content="친구들의 힘으로 쵸네를 서울에 소환하는 비공식 친구 펀딩 프로젝트" />
   <style>
     :root{
-      --bg:#f6f7fb;
-      --card:#ffffff;
-      --text:#16181d;
-      --muted:#6f7683;
-      --line:#e9ebf0;
-      --accent:#ff5b79;
-      --accent2:#6d5dfc;
-      --good:#24b47e;
-      --shadow:0 16px 45px rgba(25,35,60,.09);
+      --bg:#f8fbff;
+      --card:rgba(255,255,255,.86);
+      --text:#263247;
+      --muted:#77839a;
+      --line:rgba(171,190,218,.34);
+      --accent:#f5a8c9;
+      --accent2:#9fd9ff;
+      --accent-blue:#9fd9ff;
+      --accent-pink:#f6b1cf;
+      --good:#8ccfb4;
+      --shadow:0 18px 50px rgba(119,145,180,.14);
       --radius:24px;
     }
 
@@ -24,9 +26,18 @@
     body{
       margin:0;
       background:
-        radial-gradient(circle at 10% 0%, rgba(109,93,252,.12), transparent 30%),
-        radial-gradient(circle at 90% 5%, rgba(255,91,121,.14), transparent 28%),
-        var(--bg);
+        radial-gradient(circle at 8% 8%, rgba(159,217,255,.24), transparent 22%),
+        radial-gradient(circle at 92% 10%, rgba(246,177,207,.24), transparent 22%),
+        linear-gradient(
+          90deg,
+          #eef9ff 0%,
+          #f8fcff 16%,
+          #ffffff 30%,
+          #ffffff 70%,
+          #fffafd 84%,
+          #fff0f6 100%
+        );
+      background-attachment: fixed;
       color:var(--text);
       font-family:Pretendard, "Noto Sans KR", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       line-height:1.6;
@@ -38,14 +49,15 @@
     .topbar{
       position:sticky; top:0; z-index:20;
       backdrop-filter:blur(14px);
-      background:rgba(246,247,251,.82);
-      border-bottom:1px solid rgba(220,223,230,.8);
+      background:rgba(255,255,255,.66);
+      border-bottom:1px solid rgba(189,205,226,.45);
     }
     .topbar .inner{
       height:66px; display:flex; align-items:center; justify-content:space-between;
     }
     .brand{font-weight:900; letter-spacing:-.03em}
-    .brand span{color:var(--accent)}
+    .brand-chone{color:#77c8f5}
+    .brand-project{color:#ee9fc3}
     .nav{display:flex; gap:10px; align-items:center}
     .nav a{
       padding:9px 13px; border-radius:999px; color:var(--muted); font-size:14px; font-weight:700;
@@ -64,10 +76,13 @@
       border:1px solid var(--line);
       box-shadow:var(--shadow);
       border-radius:var(--radius);
+      backdrop-filter:blur(14px);
     }
     .hero-main{
       min-height:520px;
       padding:46px;
+      background:
+        linear-gradient(145deg, rgba(236,249,255,.62), rgba(255,255,255,.95) 72%);
       display:flex;
       flex-direction:column;
       justify-content:space-between;
@@ -76,7 +91,7 @@
     }
     .blob{
       position:absolute; right:-100px; top:-80px; width:330px; height:330px;
-      background:linear-gradient(135deg, rgba(255,91,121,.18), rgba(109,93,252,.18));
+      background:linear-gradient(135deg, rgba(159,217,255,.42), rgba(246,177,207,.38));
       border-radius:50%;
       filter:blur(2px);
     }
@@ -84,7 +99,7 @@
       width:max-content;
       display:inline-flex; align-items:center; gap:8px;
       padding:8px 12px; border-radius:999px;
-      background:#fff1f4; color:#d9365d;
+      background:#fff0f6; color:#b85b85;
       font-size:13px; font-weight:900;
       letter-spacing:-.02em;
     }
@@ -103,11 +118,13 @@
     }
     .chip{
       padding:9px 12px; border:1px solid var(--line); border-radius:12px;
-      background:#fafbfc; font-size:13px; color:#4e5561; font-weight:800;
+      background:rgba(255,255,255,.7); font-size:13px; color:#4e5561; font-weight:800;
     }
 
     .fund-card{
       padding:30px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.95), rgba(255,239,246,.62));
       display:flex;
       flex-direction:column;
       justify-content:space-between;
@@ -128,7 +145,7 @@
       height:100%;
       width:67%;
       border-radius:999px;
-      background:linear-gradient(90deg,var(--accent),var(--accent2));
+      background:linear-gradient(90deg,var(--accent-blue),var(--accent-pink));
       transition:width .6s ease;
     }
     .stats{
@@ -137,7 +154,7 @@
     .stat{
       border:1px solid var(--line);
       border-radius:16px; padding:14px;
-      background:#fbfbfd;
+      background:rgba(255,255,255,.72);
     }
     .stat strong{display:block; font-size:18px}
     .stat span{font-size:12px; color:var(--muted)}
@@ -146,9 +163,9 @@
       display:inline-flex; align-items:center; justify-content:center;
       border:0; cursor:pointer;
       padding:16px 18px; border-radius:15px;
-      background:linear-gradient(90deg,var(--accent),#ff7a66);
+      background:linear-gradient(90deg,#9fd9ff,#f6b1cf);
       color:white; font-weight:900; font-size:16px;
-      box-shadow:0 10px 24px rgba(255,91,121,.24);
+      box-shadow:0 10px 26px rgba(189,174,218,.28);
     }
     .cta:hover{transform:translateY(-1px)}
     .subcta{
@@ -162,6 +179,14 @@
       display:grid; grid-template-columns:1fr 1fr; gap:24px; margin:0 0 28px;
     }
     .section{padding:34px}
+
+    .grid > .section:nth-child(odd){
+      background:linear-gradient(145deg, rgba(239,249,255,.56), rgba(255,255,255,.94) 68%);
+    }
+    .grid > .section:nth-child(even){
+      background:linear-gradient(145deg, rgba(255,255,255,.94) 32%, rgba(255,241,247,.56));
+    }
+
     .section h2{
       margin:0 0 12px; font-size:28px; letter-spacing:-.04em;
     }
@@ -169,7 +194,7 @@
     .use-list{display:grid; gap:10px; margin-top:20px}
     .use{
       display:flex; gap:12px; align-items:flex-start; padding:14px;
-      border-radius:16px; background:#fafbfc; border:1px solid var(--line);
+      border-radius:16px; background:rgba(255,255,255,.7); border:1px solid var(--line);
     }
     .emoji{
       display:grid; place-items:center; flex:0 0 38px; height:38px;
@@ -190,10 +215,10 @@
     .reward .title{font-weight:900;margin:8px 0 6px}
     .reward p{font-size:14px;color:var(--muted);margin:0}
     .reward.highlight{
-      background:linear-gradient(160deg,#2b2942,#171722);
-      color:white; border-color:transparent;
+      background:linear-gradient(145deg,#dff3ff,#ffe3ef);
+      color:var(--text); border-color:rgba(183,202,225,.5);
     }
-    .reward.highlight p{color:#c7c5d4}
+    .reward.highlight p{color:#68758b}
 
     .timeline{
       display:grid; gap:12px; margin-top:18px;
@@ -205,14 +230,14 @@
     .step:last-child{border-bottom:0}
     .num{
       width:36px;height:36px;border-radius:50%;display:grid;place-items:center;
-      background:#f2f0ff;color:var(--accent2);font-weight:950;
+      background:#e9f7ff;color:#5d9fca;font-weight:950;
     }
 
     .supporters{
       display:flex;flex-wrap:wrap;gap:9px;margin-top:18px;
     }
     .supporter{
-      padding:8px 11px;border-radius:999px;background:#fafbfc;border:1px solid var(--line);
+      padding:8px 11px;border-radius:999px;background:rgba(255,255,255,.7);border:1px solid var(--line);
       font-size:13px;font-weight:800;
     }
 
@@ -253,7 +278,7 @@
 <body>
   <div class="topbar">
     <div class="wrap inner">
-      <div class="brand">CHO-NE <span>PROJECT</span></div>
+      <div class="brand"><span class="brand-chone">CHO-NE</span> <span class="brand-project">PROJECT</span></div>
       <div class="nav">
         <a href="#about">소개</a>
         <a href="#rewards">리워드</a>
