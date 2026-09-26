@@ -1,0 +1,483 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>초네 서울 상경 프로젝트</title>
+  <meta name="description" content="친구들의 힘으로 초네를 서울에 소환하는 비공식 친구 펀딩 프로젝트" />
+  <style>
+    :root{
+      --bg:#f6f7fb;
+      --card:#ffffff;
+      --text:#16181d;
+      --muted:#6f7683;
+      --line:#e9ebf0;
+      --accent:#ff5b79;
+      --accent2:#6d5dfc;
+      --good:#24b47e;
+      --shadow:0 16px 45px rgba(25,35,60,.09);
+      --radius:24px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      background:
+        radial-gradient(circle at 10% 0%, rgba(109,93,252,.12), transparent 30%),
+        radial-gradient(circle at 90% 5%, rgba(255,91,121,.14), transparent 28%),
+        var(--bg);
+      color:var(--text);
+      font-family:Pretendard, "Noto Sans KR", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height:1.6;
+    }
+
+    a{color:inherit;text-decoration:none}
+    button{font:inherit}
+    .wrap{width:min(1120px, calc(100% - 32px)); margin:0 auto}
+    .topbar{
+      position:sticky; top:0; z-index:20;
+      backdrop-filter:blur(14px);
+      background:rgba(246,247,251,.82);
+      border-bottom:1px solid rgba(220,223,230,.8);
+    }
+    .topbar .inner{
+      height:66px; display:flex; align-items:center; justify-content:space-between;
+    }
+    .brand{font-weight:900; letter-spacing:-.03em}
+    .brand span{color:var(--accent)}
+    .nav{display:flex; gap:10px; align-items:center}
+    .nav a{
+      padding:9px 13px; border-radius:999px; color:var(--muted); font-size:14px; font-weight:700;
+    }
+    .nav a:hover{background:#fff;color:var(--text)}
+
+    .hero{
+      display:grid;
+      grid-template-columns:1.2fr .8fr;
+      gap:28px;
+      padding:54px 0 28px;
+      align-items:stretch;
+    }
+    .hero-main,.fund-card,.section,.reward,.faq-card{
+      background:var(--card);
+      border:1px solid var(--line);
+      box-shadow:var(--shadow);
+      border-radius:var(--radius);
+    }
+    .hero-main{
+      min-height:520px;
+      padding:46px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      overflow:hidden;
+      position:relative;
+    }
+    .blob{
+      position:absolute; right:-100px; top:-80px; width:330px; height:330px;
+      background:linear-gradient(135deg, rgba(255,91,121,.18), rgba(109,93,252,.18));
+      border-radius:50%;
+      filter:blur(2px);
+    }
+    .badge{
+      width:max-content;
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 12px; border-radius:999px;
+      background:#fff1f4; color:#d9365d;
+      font-size:13px; font-weight:900;
+      letter-spacing:-.02em;
+    }
+    h1{
+      margin:22px 0 18px;
+      font-size:clamp(42px, 6vw, 78px);
+      line-height:1.03;
+      letter-spacing:-.06em;
+      max-width:760px;
+    }
+    .hero-copy{
+      font-size:18px; color:var(--muted); max-width:680px; margin:0;
+    }
+    .hero-foot{
+      display:flex; gap:10px; flex-wrap:wrap; margin-top:42px;
+    }
+    .chip{
+      padding:9px 12px; border:1px solid var(--line); border-radius:12px;
+      background:#fafbfc; font-size:13px; color:#4e5561; font-weight:800;
+    }
+
+    .fund-card{
+      padding:30px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+    }
+    .eyebrow{
+      color:var(--muted); font-size:13px; font-weight:900; letter-spacing:.08em; text-transform:uppercase;
+    }
+    .amount{
+      margin:4px 0 0;
+      font-size:42px; font-weight:950; letter-spacing:-.05em;
+    }
+    .goal{color:var(--muted); margin-top:4px; font-size:14px}
+    .bar{
+      margin:24px 0 10px;
+      height:14px; background:#f0f1f5; border-radius:999px; overflow:hidden;
+    }
+    .bar > div{
+      height:100%;
+      width:67%;
+      border-radius:999px;
+      background:linear-gradient(90deg,var(--accent),var(--accent2));
+      transition:width .6s ease;
+    }
+    .stats{
+      display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin:20px 0 24px;
+    }
+    .stat{
+      border:1px solid var(--line);
+      border-radius:16px; padding:14px;
+      background:#fbfbfd;
+    }
+    .stat strong{display:block; font-size:18px}
+    .stat span{font-size:12px; color:var(--muted)}
+    .cta{
+      width:100%;
+      display:inline-flex; align-items:center; justify-content:center;
+      border:0; cursor:pointer;
+      padding:16px 18px; border-radius:15px;
+      background:linear-gradient(90deg,var(--accent),#ff7a66);
+      color:white; font-weight:900; font-size:16px;
+      box-shadow:0 10px 24px rgba(255,91,121,.24);
+    }
+    .cta:hover{transform:translateY(-1px)}
+    .subcta{
+      margin-top:10px;
+      width:100%; border:1px solid var(--line); background:#fff;
+      padding:13px 16px; border-radius:15px; cursor:pointer; font-weight:800;
+    }
+    .fine{font-size:12px;color:var(--muted);margin:14px 0 0;text-align:center}
+
+    .grid{
+      display:grid; grid-template-columns:1fr 1fr; gap:24px; margin:0 0 28px;
+    }
+    .section{padding:34px}
+    .section h2{
+      margin:0 0 12px; font-size:28px; letter-spacing:-.04em;
+    }
+    .section p{margin:0;color:#525865}
+    .use-list{display:grid; gap:10px; margin-top:20px}
+    .use{
+      display:flex; gap:12px; align-items:flex-start; padding:14px;
+      border-radius:16px; background:#fafbfc; border:1px solid var(--line);
+    }
+    .emoji{
+      display:grid; place-items:center; flex:0 0 38px; height:38px;
+      border-radius:12px; background:white; border:1px solid var(--line);
+    }
+    .use b{display:block}
+    .use small{color:var(--muted)}
+
+    .rewards{
+      display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin:0 0 28px;
+    }
+    .reward{
+      padding:24px; min-height:210px;
+      transition:.2s ease;
+    }
+    .reward:hover{transform:translateY(-4px)}
+    .reward .price{font-size:26px;font-weight:950}
+    .reward .title{font-weight:900;margin:8px 0 6px}
+    .reward p{font-size:14px;color:var(--muted);margin:0}
+    .reward.highlight{
+      background:linear-gradient(160deg,#2b2942,#171722);
+      color:white; border-color:transparent;
+    }
+    .reward.highlight p{color:#c7c5d4}
+
+    .timeline{
+      display:grid; gap:12px; margin-top:18px;
+    }
+    .step{
+      display:grid; grid-template-columns:42px 1fr; gap:12px; align-items:start;
+      padding:14px 0; border-bottom:1px dashed var(--line);
+    }
+    .step:last-child{border-bottom:0}
+    .num{
+      width:36px;height:36px;border-radius:50%;display:grid;place-items:center;
+      background:#f2f0ff;color:var(--accent2);font-weight:950;
+    }
+
+    .supporters{
+      display:flex;flex-wrap:wrap;gap:9px;margin-top:18px;
+    }
+    .supporter{
+      padding:8px 11px;border-radius:999px;background:#fafbfc;border:1px solid var(--line);
+      font-size:13px;font-weight:800;
+    }
+
+    .faq{
+      display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:50px;
+    }
+    .faq-card{padding:22px}
+    .faq-card b{display:block;margin-bottom:6px}
+    .faq-card p{margin:0;color:var(--muted);font-size:14px}
+
+    footer{
+      padding:18px 0 46px;text-align:center;color:var(--muted);font-size:13px
+    }
+
+    .toast{
+      position:fixed; left:50%; bottom:28px; transform:translate(-50%,20px);
+      background:#16181d;color:white;padding:12px 16px;border-radius:12px;
+      opacity:0;pointer-events:none;transition:.25s;z-index:99;font-weight:800;font-size:14px;
+    }
+    .toast.show{opacity:1;transform:translate(-50%,0)}
+
+    @media (max-width:900px){
+      .hero,.grid{grid-template-columns:1fr}
+      .rewards{grid-template-columns:1fr 1fr}
+      .hero-main{min-height:auto}
+    }
+    @media (max-width:600px){
+      .nav a:not(.keep){display:none}
+      .hero{padding-top:28px}
+      .hero-main{padding:28px}
+      .fund-card,.section{padding:24px}
+      .rewards,.faq{grid-template-columns:1fr}
+      .stats{grid-template-columns:1fr}
+      h1{font-size:48px}
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap inner">
+      <div class="brand">CHO-NE <span>PROJECT</span></div>
+      <div class="nav">
+        <a href="#about">소개</a>
+        <a href="#rewards">리워드</a>
+        <a class="keep" href="#fund">후원하기</a>
+      </div>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <section class="hero">
+      <div class="hero-main">
+        <div class="blob"></div>
+        <div>
+          <div class="badge">🚄 비공식 친구 펀딩 · 서울 소환 프로젝트</div>
+          <h1>초네를<br>서울로.</h1>
+          <p class="hero-copy">
+            교통비라는 거대한 장벽에 가로막힌 초네를 친구들의 힘으로 서울에 소환합니다.
+            거창한 투자도, 지분도 없습니다. 그냥 초네가 서울에 옵니다.
+          </p>
+        </div>
+        <div class="hero-foot">
+          <div class="chip">🎯 목표 150,000원</div>
+          <div class="chip">👥 친구 한정 공개</div>
+          <div class="chip">🧾 사용내역 공개 예정</div>
+        </div>
+      </div>
+
+      <aside class="fund-card" id="fund">
+        <div>
+          <div class="eyebrow">현재 모금액</div>
+          <div class="amount" id="currentAmount">100,500원</div>
+          <div class="goal">목표 150,000원 중 <b id="percentText">67%</b></div>
+          <div class="bar"><div id="progressBar"></div></div>
+          <div class="stats">
+            <div class="stat"><strong id="supporterCount">13명</strong><span>후원자</span></div>
+            <div class="stat"><strong id="daysLeft">D-7</strong><span>남은 기간</span></div>
+            <div class="stat"><strong>초네 1명</strong><span>소환 대상</span></div>
+          </div>
+        </div>
+
+        <div>
+          <a class="cta" id="tossButton" href="#" target="_blank" rel="noopener">초네에게 후원하기</a>
+          <button class="subcta" id="copyButton">계좌번호 복사</button>
+          <p class="fine">※ 정식 크라우드펀딩이 아니라 친구들끼리 진행하는 비공식 모금입니다.</p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="grid" id="about">
+      <div class="section">
+        <h2>왜 서울에 와야 하나요?</h2>
+        <p>
+          이유는 간단합니다. 초네가 서울에 오면 재밌기 때문입니다.
+          하지만 이동에는 비용이 듭니다. 그래서 여러 명이 조금씩 힘을 합쳐
+          “초네 서울 상경”이라는 위대한(?) 공공사업을 추진합니다.
+        </p>
+
+        <div class="timeline">
+          <div class="step">
+            <div class="num">1</div>
+            <div><b>친구들이 조금씩 후원</b><br><small>부담 없는 금액으로 참여합니다.</small></div>
+          </div>
+          <div class="step">
+            <div class="num">2</div>
+            <div><b>목표 금액 달성</b><br><small>교통비와 최소 경비를 확보합니다.</small></div>
+          </div>
+          <div class="step">
+            <div class="num">3</div>
+            <div><b>초네 서울 입성</b><br><small>프로젝트 성공. 인간이 실제로 이동합니다.</small></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>후원금은 어디에 쓰이나요?</h2>
+        <p>친구들끼리 하는 모금이라도 사용처는 최대한 투명하게 적어둡니다.</p>
+        <div class="use-list">
+          <div class="use">
+            <div class="emoji">🚄</div>
+            <div><b>교통비</b><small>초네의 왕복 이동비</small></div>
+          </div>
+          <div class="use">
+            <div class="emoji">🍚</div>
+            <div><b>최소 생존비</b><small>서울에서 굶지 않기 위한 식비</small></div>
+          </div>
+          <div class="use">
+            <div class="emoji">☕</div>
+            <div><b>카페인 공급비</b><small>초네의 정상적인 작동을 위한 비용</small></div>
+          </div>
+          <div class="use">
+            <div class="emoji">💰</div>
+            <div><b>초과 모금</b><small>친구들 식사비 또는 다음 방문 적립 — 최종 사용내역 공개</small></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="rewards">
+      <div class="section" style="margin-bottom:16px">
+        <h2>후원 리워드</h2>
+        <p>금액별로 받을 수 있는 것은 대단하지 않지만, 명예는 남습니다.</p>
+      </div>
+
+      <div class="rewards">
+        <div class="reward">
+          <div class="price">1,000원</div>
+          <div class="title">정신적 기여자</div>
+          <p>“나는 초네가 서울에 오도록 0.67% 정도 기여했다”라고 말할 수 있습니다.</p>
+        </div>
+        <div class="reward">
+          <div class="price">5,000원</div>
+          <div class="title">초네 후원자</div>
+          <p>초네에게 꽤 진심 어린 감사를 받을 가능성이 생깁니다.</p>
+        </div>
+        <div class="reward">
+          <div class="price">10,000원</div>
+          <div class="title">상경 추진위원</div>
+          <p>초네 서울 상경 사업에 실질적으로 기여한 사람으로 기록됩니다.</p>
+        </div>
+        <div class="reward highlight">
+          <div class="price">30,000원+</div>
+          <div class="title">주요 주주</div>
+          <p>지분은 없습니다. 하지만 마음속 지분은 매우 큽니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="section">
+        <h2>최근 후원</h2>
+        <p>실명 공개는 동의한 사람만. 나머지는 익명 처리하면 됩니다.</p>
+        <div class="supporters">
+          <div class="supporter">김○○ · 5,000원</div>
+          <div class="supporter">익명 · 10,000원</div>
+          <div class="supporter">박○○ · 3,000원</div>
+          <div class="supporter">초네를 사랑하는 모임 · 20,000원</div>
+          <div class="supporter">이○○ · 1,000원</div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>프로젝트 성공 조건</h2>
+        <p>
+          목표 금액을 달성하면 초네의 서울 방문 일정을 확정합니다.
+          일정 변경이나 취소가 생기면 모금 참여자들에게 먼저 알리고,
+          남은 금액의 처리 방식도 공개합니다.
+        </p>
+      </div>
+    </section>
+
+    <section class="faq">
+      <div class="faq-card">
+        <b>Q. 진짜 펀딩 사이트인가요?</b>
+        <p>아니요. 친구들끼리 링크를 공유해서 모금하는 비공식 페이지입니다.</p>
+      </div>
+      <div class="faq-card">
+        <b>Q. 얼마를 내야 하나요?</b>
+        <p>자유입니다. 1,000원이든 10,000원이든 부담 없는 만큼만.</p>
+      </div>
+      <div class="faq-card">
+        <b>Q. 목표를 초과하면요?</b>
+        <p>미리 정한 방식대로 식비·모임비 등에 사용하고 최종 내역을 공개하세요.</p>
+      </div>
+      <div class="faq-card">
+        <b>Q. 초네가 안 오면요?</b>
+        <p>취소 상황과 환불/보관 방식을 모금 전에 친구들과 합의해두는 것이 좋습니다.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    CHO-NE PROJECT · 친구들끼리 하는 비공식 상경 지원 프로젝트
+  </footer>
+
+  <div class="toast" id="toast">복사했습니다!</div>
+
+  <script>
+    // =============================
+    // 여기만 네 상황에 맞게 수정하면 됨
+    // =============================
+    const CONFIG = {
+      goal: 150000,
+      current: 100500,
+      supporters: 13,
+      daysLeft: 7,
+
+      // 토스 송금링크가 있으면 아래에 붙여넣기.
+      // 없으면 "#" 그대로 두고 계좌번호 버튼만 써도 됨.
+      tossLink: "#",
+
+      // 예: "카카오뱅크 3333-12-3456789 홍길동"
+      accountText: "은행명 000-0000-0000 예금주"
+    };
+
+    const won = n => n.toLocaleString("ko-KR") + "원";
+    const percent = Math.min(100, Math.round(CONFIG.current / CONFIG.goal * 100));
+
+    document.getElementById("currentAmount").textContent = won(CONFIG.current);
+    document.getElementById("percentText").textContent = percent + "%";
+    document.getElementById("progressBar").style.width = percent + "%";
+    document.getElementById("supporterCount").textContent = CONFIG.supporters + "명";
+    document.getElementById("daysLeft").textContent = "D-" + CONFIG.daysLeft;
+    document.getElementById("tossButton").href = CONFIG.tossLink;
+
+    const toast = document.getElementById("toast");
+    document.getElementById("copyButton").addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(CONFIG.accountText);
+        toast.textContent = "계좌번호를 복사했습니다!";
+      } catch (e) {
+        toast.textContent = CONFIG.accountText;
+      }
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 1800);
+    });
+
+    document.getElementById("tossButton").addEventListener("click", (e) => {
+      if (!CONFIG.tossLink || CONFIG.tossLink === "#") {
+        e.preventDefault();
+        toast.textContent = "CONFIG의 tossLink에 송금 링크를 넣어주세요!";
+        toast.classList.add("show");
+        setTimeout(() => toast.classList.remove("show"), 2000);
+      }
+    });
+  </script>
+</body>
+</html>
